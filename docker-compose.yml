@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  mysql-db:
+    image: mysql:8.0  
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  
+      MYSQL_DATABASE: banco_db           
+      MYSQL_USER: usuario                
+      MYSQL_PASSWORD: contrasena        
+    ports:
+      - "3306:3306" 
+    volumes:
+      - mysql-data:/var/lib/mysql  
+    networks:
+      - banco-network
+
+
+#  cliente-service:
+#    build:
+#      context:  ./backend/
+#      dockerfile: Dockerfile
+#    container_name: cliente-service
+#    depends_on:
+#      - mysql-db  # Depende de MySQL
+#    ports:
+#      - "8081:8081"  # Expone el puerto 8081 de la aplicación
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/banco_db
+#      SPRING_DATASOURCE_USERNAME: usuario
+#      SPRING_DATASOURCE_PASSWORD: contrasena
+#    networks:
+#      - banco-network
+
+# Volumen para persistir los datos de MySQL
+volumes:
+  mysql-data:
+
+# Red para conectar los servicios
+networks:
+  banco-network:
+    driver: bridge
