@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.banco</groupId>
-	<artifactId>cliente-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>bancario-app</artifactId>
+	<version>0.0.1</version>
 	<name>cliente-service</name>
 	<description>microservicio par ala gestion de clientes</description>
 	<url/>

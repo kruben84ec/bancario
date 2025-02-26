@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 
 # Copiar el archivo JAR de la aplicación
-COPY target/cliente-service-0.0.1-SNAPSHOT.jar app.jar
+COPY ../bancario/target/cliente-service-0.0.1-SNAPSHOT.jar app.jar
 
 # Exponer el puerto de la aplicación
 EXPOSE 8081

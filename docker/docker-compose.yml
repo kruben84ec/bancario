@@ -4,6 +4,7 @@ services:
   db:
     image: postgres:13
     container_name: bancario_db
+    restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -12,10 +13,18 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     container_name: bancario_app
+    restart: always
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
@@ -25,7 +34,10 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
 
 volumes:
   postgres_data:
