@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:13
@@ -20,9 +18,7 @@ services:
       timeout: 5s
 
   app:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    image: openjdk:17
     container_name: bancario_app
     restart: always
     environment:
@@ -37,7 +33,9 @@ services:
       db:
         condition: service_healthy
     volumes:
+      - ./bancario/target/bancario-app-0.0.1.jar:/app/bancario-app.jar
       - ./logs:/app/logs
+    command: ["java", "-jar", "/app/bancario-app.jar"]
 
 volumes:
   postgres_data:
