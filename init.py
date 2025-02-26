@@ -2,19 +2,10 @@ import os
 
 def create_directories(base_path):
     directories = [
-        "src/main/java/com/bancario/controller",
-        "src/main/java/com/bancario/service",
-        "src/main/java/com/bancario/repository",
-        "src/main/java/com/bancario/model",
-        "src/main/java/com/bancario/config",
-        "src/main/resources/db/migration",
-        "src/main/resources/static",
-        "src/test",
         "docker",
         "scripts",
         "data/postgres",
-        "config",
-        ".github"
+        "config"
     ]
 
     for directory in directories:
@@ -23,6 +14,6 @@ def create_directories(base_path):
         print(f"Directorio creado: {path}")
 
 if __name__ == "__main__":
-    base_path = os.path.abspath("bancario")
+    base_path = os.path.abspath("./")
     create_directories(base_path)
     print("Estructura de directorios creada exitosamente.")
